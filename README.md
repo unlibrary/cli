@@ -27,13 +27,13 @@ CORE COMMANDS:
     account
     auth
     feeds
-    source
+    sources
     entries
 
 SUBCOMMANDS:
     account create --username <string> --password <string>
         creates a new account
-        accounts are on-device buckets of sources, i 
+        accounts are on-device buckets of sources, i
         do not collect any data
 
     auth login --username <string> --password <string>
@@ -41,12 +41,12 @@ SUBCOMMANDS:
 
     auth logout
         clears current authenticated account
-    
-    source create --url <string> --title <string> --type <type>
+
+    sources create --url <string> --title <string> --type <type>
         adds a new source
         possible types are: rss, atom, mf2
 
-    source list
+    sources list
         list all sources in the authenticated account
 
     entries list
@@ -70,7 +70,7 @@ FLAGS:
 
     --version, -v
         Show uncli version
-    
+
 LEARN MORE
 Read the full manual at https://unlibrary.github.io/cli/
 
