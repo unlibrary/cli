@@ -2,6 +2,19 @@
 
 aka `UnCLI`
 
+## Installation
+
+```shell
+git clone https://github.com/unlibrary/cli
+cd cli
+mix deps.get
+mix escript.build
+```
+
+This will produce a binary named `uncli` in your working directory.
+
+## Usage
+
 ```shell
 $  uncli --help
 uncli 0.1.0

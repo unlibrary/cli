@@ -10,13 +10,12 @@ defmodule UnCLI.MixProject do
       elixir: "~> 1.12",
       start_permanent: Mix.env() == :prod,
       deps: deps(),
-      escript: escript(),
+      escript: escript()
     ]
   end
 
   def application do
     [
-      included_applications: [:unlib],
       extra_applications: [:logger]
     ]
   end
@@ -24,6 +23,7 @@ defmodule UnCLI.MixProject do
   defp deps do
     [
       {:unlib, path: "../reader"},
+      {:html_sanitize_ex, "~> 1.4"}
     ]
   end
 
