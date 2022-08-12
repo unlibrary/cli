@@ -44,6 +44,7 @@ defmodule UnCLI.Client do
       {"auth login", "configures current authenticated account"},
       {"sources add", "adds a new source"},
       {"sources list", "list all sources in the authenticated account"},
+      {"sources remove <url>", "removes a source (use list to get url)"},
       {"entries list", "lists all downloaded entries in the authenticated account"},
       {"feeds pull", "downloads all new entries from the sources in the authenticated account"}
     ])

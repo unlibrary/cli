@@ -15,7 +15,7 @@ defmodule UnCLI.Accounts do
 
   defp handle_creation({:error, changeset}) do
     Output.empty()
-    Output.error(changeset)
+    Output.error!(changeset)
   end
 
   defp handle_creation({:ok, _account}) do

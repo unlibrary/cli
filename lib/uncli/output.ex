@@ -48,14 +48,18 @@ defmodule UnCLI.Output do
     IO.puts("")
   end
 
-  def error(%Ecto.Changeset{} = changeset) do
-    changeset
-    |> format_error()
-    |> error()
-  end
-
   def error(text) do
     IO.puts(bright() <> red() <> "Error: " <> reset() <> red() <> text <> reset())
+  end
+
+  def error!(%Ecto.Changeset{} = changeset) do
+    changeset
+    |> format_error()
+    |> error!()
+  end
+
+  def error!(text) do
+    error(text)
     exit({:shutdown, 1})
   end
 

@@ -23,7 +23,7 @@ defmodule UnCLI.Sources do
 
   def add(false) do
     Output.empty()
-    Output.error("Not authenticated.")
+    Output.error!("Not authenticated.")
   end
 
   defp to_atom(string) do
@@ -31,7 +31,7 @@ defmodule UnCLI.Sources do
       String.to_atom(string)
     else
       Output.empty()
-      Output.error("Invalid type given.")
+      Output.error!("Invalid type given.")
     end
   end
 
@@ -42,7 +42,7 @@ defmodule UnCLI.Sources do
 
   defp handle_creation({:error, error}) do
     Output.empty()
-    Output.error(error)
+    Output.error!(error)
   end
 
   def list(logged_in \\ logged_in?())
@@ -60,7 +60,7 @@ defmodule UnCLI.Sources do
 
   def list(false) do
     Output.empty()
-    Output.error("Not authenticated.")
+    Output.error!("Not authenticated.")
   end
 
   defp render_source(source) do
@@ -83,12 +83,12 @@ defmodule UnCLI.Sources do
         make_call(UnLib.Sources.remove(source, user))
 
       {:error, changeset} ->
-        Output.error(changeset)
+        Output.error!(changeset)
     end
   end
 
   def remove(_url, false) do
     Output.empty()
-    Output.error("Not authenticated.")
+    Output.error!("Not authenticated.")
   end
 end
