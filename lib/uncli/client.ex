@@ -18,8 +18,11 @@ defmodule UnCLI.Client do
       ["sources", "remove", url] ->
         Sources.remove(url)
 
-      ["--help"] ->
+      [h] when h in ["--help", "-h"] ->
         help()
+
+      [v] when v in ["--version", "-v"] ->
+        version()
 
       _ ->
         invalid_arguments()
@@ -51,6 +54,13 @@ defmodule UnCLI.Client do
     ])
 
     Output.put("Read the full manual at https://unlibrary.github.io/cli/")
+  end
+
+  defp version do
+    Output.Help.header(
+      "uncli",
+      "a rss reader cli for unix systems built using elixir and erlang."
+    )
   end
 
   defp invalid_arguments do

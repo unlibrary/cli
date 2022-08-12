@@ -24,7 +24,7 @@ defmodule UnCLI.MixProject do
 
   defp deps do
     [
-      {:ecto_sql, "~> 3.0"},
+      {:ecto, "~> 3.0"},
       {:html_sanitize_ex, "~> 1.4"}
     ]
   end
