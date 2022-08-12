@@ -2,10 +2,16 @@ defmodule UnCLI.Client do
   @moduledoc false
 
   alias UnCLI.{Output}
-  alias UnCLI.{Accounts, Sources}
+  alias UnCLI.{Auth, Accounts, Sources, Entries}
 
   def call(args) do
     case args do
+      ["auth", "login"] ->
+        Auth.login()
+
+      ["auth", "logout"] ->
+        Auth.logout()
+
       ["account", "create"] ->
         Accounts.create()
 
@@ -17,6 +23,12 @@ defmodule UnCLI.Client do
 
       ["sources", "remove", url] ->
         Sources.remove(url)
+
+      ["entries", "list"] ->
+        Entries.list()
+
+      ["entries", "read", url] ->
+        Entries.read(url)
 
       [h] when h in ["--help", "-h"] ->
         help()
@@ -46,6 +58,7 @@ defmodule UnCLI.Client do
       {"sources list", "list all sources in the authenticated account"},
       {"sources remove <url>", "removes a source (use list to get url)"},
       {"entries list", "lists all downloaded entries in the authenticated account"},
+      {"entries read <url>", "renders entry (use list to get url)"},
       {"feeds pull", "downloads all new entries from the sources in the authenticated account"}
     ])
 

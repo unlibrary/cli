@@ -46,10 +46,13 @@ SUBCOMMANDS:
         list all sources in the authenticated account
 
     sources remove <url>
-        removes a source (use sources list to get url)
+        removes a source (use list to get url)
 
     entries list
         lists all downloaded entries in the authenticated account
+
+    entries read <url>
+        renders entry (use list to get url)
 
     feeds pull
         downloads all new entries from the sources in the authenticated account
