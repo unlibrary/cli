@@ -19,7 +19,8 @@ This will produce a binary named `uncli` in your working directory.
 
 ```shell
 $  uncli --help
-uncli 0.1.0a rss reader cli for unix systems built using elixir and erlang.
+uncli v0.1.0
+a rss reader cli for unix systems built using elixir and erlang.
 
 USAGE:
     uncli <command> <subcommand> [flags]
@@ -44,6 +45,9 @@ SUBCOMMANDS:
     sources list
         list all sources in the authenticated account
 
+    sources remove <url>
+        removes a source (use sources list to get url)
+
     entries list
         lists all downloaded entries in the authenticated account
 
@@ -60,5 +64,4 @@ FLAGS:
 
 
 Read the full manual at https://unlibrary.github.io/cli/
-
 ```
