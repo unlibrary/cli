@@ -1,6 +1,8 @@
 defmodule UnCLI.MixProject do
   use Mix.Project
 
+  @mix_env Mix.env()
+
   def project do
     [
       name: "Unlibrary CLI",
@@ -8,7 +10,7 @@ defmodule UnCLI.MixProject do
       app: :uncli,
       version: "0.1.0",
       elixir: "~> 1.12",
-      start_permanent: Mix.env() == :prod,
+      start_permanent: @mix_env == :prod,
       deps: deps(),
       escript: escript()
     ]
