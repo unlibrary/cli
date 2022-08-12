@@ -14,8 +14,10 @@ defmodule UnCLI.Sources do
       Input.get("Type (rss, atom or mf2): ")
       |> to_atom()
 
-    UnLib.Sources.new(url, type)
-    |> UnLib.Sources.add(user())
+    user = user()
+    source = make_call(UnLib.Sources.new(url, type))
+
+    make_call(UnLib.Sources.add(source, user))
     |> handle_creation()
   end
 
@@ -48,7 +50,8 @@ defmodule UnCLI.Sources do
   def list(true) do
     Output.title("Sources")
 
-    sources = UnLib.Sources.list(user())
+    user = user()
+    sources = make_call(UnLib.Sources.list(user))
     Enum.each(sources, &render_source/1)
 
     Output.empty()
@@ -74,9 +77,13 @@ defmodule UnCLI.Sources do
   def remove(url, logged_in \\ logged_in?())
 
   def remove(url, true) do
-    case UnLib.Sources.get_by_url(url) do
-      {:ok, source} -> UnLib.Sources.remove(source, user())
-      {:error, changeset} -> Output.error(changeset)
+    case make_call(UnLib.Sources.get_by_url(url)) do
+      {:ok, source} ->
+        user = user()
+        make_call(UnLib.Sources.remove(source, user))
+
+      {:error, changeset} ->
+        Output.error(changeset)
     end
   end
 

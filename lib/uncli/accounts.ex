@@ -2,13 +2,14 @@ defmodule UnCLI.Accounts do
   @moduledoc false
 
   alias UnCLI.{Output, Input}
+  import UnCLI.Core
 
   def create do
     Output.title("Create account")
     username = Input.get("Username: ")
     password = Input.get("Password: ")
 
-    UnLib.Accounts.create(username, password)
+    make_call(UnLib.Accounts.create(username, password))
     |> handle_creation()
   end
 

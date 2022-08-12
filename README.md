@@ -13,12 +13,13 @@ mix escript.build
 
 This will produce a binary named `uncli` in your working directory.
 
+[readerd](https://github.com/unlibrary/readerd) is required as backend for uncli.
+
 ## Usage
 
 ```shell
 $  uncli --help
-uncli 0.1.0
-a rss reader cli for unix systems built using elixir and erlang.
+uncli 0.1.0a rss reader cli for unix systems built using elixir and erlang.
 
 USAGE:
     uncli <command> <subcommand> [flags]
@@ -26,25 +27,19 @@ USAGE:
 CORE COMMANDS:
     account
     auth
-    feeds
+    feed
     sources
     entries
 
 SUBCOMMANDS:
-    account create --username <string> --password <string>
+    account create
         creates a new account
-        accounts are on-device buckets of sources, i
-        do not collect any data
 
-    auth login --username <string> --password <string>
+    auth login
         configures current authenticated account
 
-    auth logout
-        clears current authenticated account
-
-    sources create --url <string> --title <string> --type <type>
+    sources add
         adds a new source
-        possible types are: rss, atom, mf2
 
     sources list
         list all sources in the authenticated account
@@ -52,26 +47,18 @@ SUBCOMMANDS:
     entries list
         lists all downloaded entries in the authenticated account
 
-    entries list --source <id>
-        lists all downloaded entries for a source
-
-    entries show --entry <id>
-        shows the chosen entry with $PAGER
-
-    entries show --all
-        shows all entries with $PAGER
-
     feeds pull
         downloads all new entries from the sources in the authenticated account
 
+
 FLAGS:
     --help, -h
-        Show these instructions
+        show these instructions
 
     --version, -v
-        Show uncli version
+        show uncli version
 
-LEARN MORE
+
 Read the full manual at https://unlibrary.github.io/cli/
 
 ```

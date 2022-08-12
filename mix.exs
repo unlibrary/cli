@@ -24,14 +24,15 @@ defmodule UnCLI.MixProject do
 
   defp deps do
     [
-      {:unlib, path: "../reader"},
+      {:ecto_sql, "~> 3.0"},
       {:html_sanitize_ex, "~> 1.4"}
     ]
   end
 
   def escript do
     [
-      main_module: UnCLI
+      main_module: UnCLI,
+      sname: "uncli"
     ]
   end
 end
