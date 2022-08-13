@@ -5,11 +5,15 @@ defmodule UnCLI.Core do
   defmacro make_call(fun) do
     {{:__aliases__, _, modules}, fun, args} = Macro.decompose_call(fun)
     module = Module.concat(modules)
-    server = :readerd@delta
+    server = get_server()
 
     quote do
       :erpc.call(unquote(server), unquote(module), unquote(fun), unquote(args))
     end
+  end
+
+  defp get_server() do
+    Application.fetch_env!(:uncli, :server)
   end
 
   def logged_in? do

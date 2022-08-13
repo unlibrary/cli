@@ -32,7 +32,7 @@ defmodule UnCLI.MixProject do
   def escript do
     [
       main_module: UnCLI,
-      emu_args: "-sname uncli"
+      emu_args: "-name uncli"
     ]
   end
 end
