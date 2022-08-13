@@ -8,6 +8,8 @@ defmodule UnCLI.Sources do
 
   def add(true) do
     Output.title("Create account")
+
+    title = Input.get("Title: ")
     url = Input.get("Feed URL: ")
 
     type =
@@ -15,7 +17,7 @@ defmodule UnCLI.Sources do
       |> to_atom()
 
     user = user()
-    {:ok, source} = make_call(UnLib.Sources.new(url, type))
+    {:ok, source} = make_call(UnLib.Sources.new(url, type, title))
 
     make_call(UnLib.Sources.add(source, user))
     |> handle_creation()
@@ -88,10 +90,9 @@ defmodule UnCLI.Sources do
     case make_call(UnLib.Sources.get_by_url(url)) do
       {:ok, source} ->
         user = user()
-        {:ok, account} = make_call(UnLib.Sources.remove(source, user))
 
-        make_call(UnLibD.Auth.refresh(account))
-        Output.put("The source was removed successfully.")
+        make_call(UnLib.Sources.remove(source, user))
+        |> handle_removal()
 
       {:error, changeset} ->
         Output.error!(changeset)
@@ -101,5 +102,15 @@ defmodule UnCLI.Sources do
   def remove(_url, false) do
     Output.empty()
     Output.error!("Not authenticated.")
+  end
+
+  defp handle_removal({:error, error}) do
+    Output.empty()
+    Output.error!(error)
+  end
+
+  defp handle_removal({:ok, account}) do
+    make_call(UnLibD.Auth.refresh(account))
+    Output.put("The source was removed successfully.")
   end
 end
