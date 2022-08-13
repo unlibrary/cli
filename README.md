@@ -26,14 +26,14 @@ USAGE:
     uncli <command> <subcommand> [flags]
 
 CORE COMMANDS:
-    account
+    accounts
     auth
-    feed
     sources
     entries
+    feeds
 
 SUBCOMMANDS:
-    account create
+    accounts create
         creates a new account
 
     auth login

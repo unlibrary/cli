@@ -15,7 +15,7 @@ defmodule UnCLI.Sources do
       |> to_atom()
 
     user = user()
-    source = make_call(UnLib.Sources.new(url, type))
+    {:ok, source} = make_call(UnLib.Sources.new(url, type))
 
     make_call(UnLib.Sources.add(source, user))
     |> handle_creation()
@@ -35,8 +35,9 @@ defmodule UnCLI.Sources do
     end
   end
 
-  defp handle_creation({:ok, _source}) do
+  defp handle_creation({:ok, account}) do
     Output.empty()
+    make_call(UnLibD.Auth.refresh(account))
     Output.put("The source was added successfully.")
   end
 
@@ -50,8 +51,15 @@ defmodule UnCLI.Sources do
   def list(true) do
     Output.title("Sources")
 
-    user = user()
-    sources = make_call(UnLib.Sources.list(user))
+    sources = user().sources
+
+    if length(sources) == 0 do
+      "This account doesn't contain any sources."
+      |> Output.supplement()
+      |> Output.italic()
+      |> Output.put()
+    end
+
     Enum.each(sources, &render_source/1)
 
     Output.empty()
@@ -80,7 +88,10 @@ defmodule UnCLI.Sources do
     case make_call(UnLib.Sources.get_by_url(url)) do
       {:ok, source} ->
         user = user()
-        make_call(UnLib.Sources.remove(source, user))
+        {:ok, account} = make_call(UnLib.Sources.remove(source, user))
+
+        make_call(UnLibD.Auth.refresh(account))
+        Output.put("The source was removed successfully.")
 
       {:error, changeset} ->
         Output.error!(changeset)

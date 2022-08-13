@@ -12,7 +12,7 @@ defmodule UnCLI.Client do
       ["auth", "logout"] ->
         Auth.logout()
 
-      ["account", "create"] ->
+      ["accounts", "create"] ->
         Accounts.create()
 
       ["sources", "add"] ->
@@ -49,10 +49,10 @@ defmodule UnCLI.Client do
 
     Output.Help.items("Usage", ["uncli <command> <subcommand> [flags]"])
 
-    Output.Help.items("Core commands", ["account", "auth", "feed", "sources", "entries"])
+    Output.Help.items("Core commands", ["accounts", "auth", "sources", "entries", "feeds"])
 
     Output.Help.items("Subcommands", [
-      {"account create", "creates a new account"},
+      {"accounts create", "creates a new account"},
       {"auth login", "configures current authenticated account"},
       {"sources add", "adds a new source"},
       {"sources list", "list all sources in the authenticated account"},
