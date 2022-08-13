@@ -54,8 +54,11 @@ SUBCOMMANDS:
     entries read <url>
         renders entry (use list to get url)
 
+    entries prune
+        deletes all downloaded entries
+
     feeds pull
-        downloads all new entries from the sources in the authenticated account
+        downloads the 5 newest entries (skips entries that are already downloaded) from the sources in the authenticated account
 
 
 FLAGS:

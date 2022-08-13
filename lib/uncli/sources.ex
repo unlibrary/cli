@@ -55,7 +55,7 @@ defmodule UnCLI.Sources do
 
     sources = user().sources
 
-    if length(sources) == 0 do
+    if sources == [] do
       "This account doesn't contain any sources."
       |> Output.supplement()
       |> Output.italic()

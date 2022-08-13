@@ -7,11 +7,19 @@ defmodule UnCLI.Entries do
   def list(logged_in \\ logged_in?())
 
   def list(true) do
-    Output.title("Recent posts")
+    Output.title("Downloaded posts")
 
     user = user()
     entries = make_call(UnLib.Entries.list(user))
-    Enum.each(entries, &render_entry/1)
+
+    if entries == [] do
+      "There are no downloaded posts."
+      |> Output.supplement()
+      |> Output.italic()
+      |> Output.put()
+    end
+
+    Enum.each(entries, &render_entry_item/1)
 
     Output.empty()
     Output.put("Showing #{length(entries)} posts.")
@@ -22,7 +30,7 @@ defmodule UnCLI.Entries do
     Output.error!("Not authenticated.")
   end
 
-  defp render_entry(entry) do
+  defp render_entry_item(entry) do
     name =
       case entry.title do
         nil -> Output.italic("No title")
@@ -33,9 +41,27 @@ defmodule UnCLI.Entries do
     Output.item("#{name} #{url}")
   end
 
-  def read(_url) do
-    Output.error!(
-      "Sorry, I was stupid and forgot to implement the one fucking thing a RSS reader is meant for. Reading the fucking posts >:("
-    )
+  def read(url) do
+    case make_call(UnLib.Entries.get_by_url(url)) do
+      {:ok, entry} ->
+        render_entry(entry)
+
+      {:error, error} ->
+        Output.empty()
+        Output.error!(error)
+    end
+  end
+
+  defp render_entry(entry) do
+    Output.title(entry.title)
+    Output.author(entry.source.name)
+
+    Output.put_html(entry.body)
+  end
+
+  def prune() do
+    make_call(UnLib.Entries.prune())
+    Output.empty()
+    Output.put("Pruning entries.")
   end
 end
