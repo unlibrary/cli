@@ -51,8 +51,8 @@ SUBCOMMANDS:
     entries list
         lists all downloaded entries in the authenticated account
 
-    entries read <url>
-        renders entry (use list to get url)
+    entries read <id>
+        renders entry (use list to get id)
 
     entries prune
         deletes all downloaded entries

@@ -39,12 +39,16 @@ defmodule UnCLI.Entries do
         name -> name
       end
 
-    url = Output.supplement("(#{entry.url})")
+    url = Output.supplement("(#{entry.id})")
     Output.item("#{name} #{url}")
+
+    entry.url
+    |> Output.italic()
+    |> Output.put()
   end
 
-  def read(url) do
-    case make_call(UnLib.Entries.get_by_url(url)) do
+  def read(id) do
+    case make_call(UnLib.Entries.get(id)) do
       {:ok, entry} ->
         render_entry(entry)
 

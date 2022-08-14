@@ -64,7 +64,7 @@ defmodule UnCLI.Client do
       {"sources list", "list all sources in the authenticated account"},
       {"sources remove <url>", "removes a source (use list to get url)"},
       {"entries list", "lists all downloaded entries in the authenticated account"},
-      {"entries read <url>", "renders entry (use list to get url)"},
+      {"entries read <id>", "renders entry (use list to get id)"},
       {"entries prune", "deletes all downloaded entries"},
       {"feeds pull",
        "downloads the 5 newest entries (skips entries that are already downloaded) from the sources in the authenticated account"}
