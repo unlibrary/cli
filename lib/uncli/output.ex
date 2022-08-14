@@ -1,6 +1,7 @@
 defmodule UnCLI.Output do
   @moduledoc false
 
+  alias UnCLI.{Input}
   import IO.ANSI
 
   def title(text) do
@@ -32,16 +33,8 @@ defmodule UnCLI.Output do
   end
 
   def put_html(text) do
-    text
-    |> strip_newlines()
-    |> HtmlSanitizeEx.strip_tags()
+    Input.sanitize_html(text)
     |> put()
-  end
-
-  defp strip_newlines(text) do
-    text
-    |> String.replace("\r", "")
-    |> String.replace("\n", "")
   end
 
   def empty() do

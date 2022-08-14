@@ -1,8 +1,10 @@
 defmodule UnCLI.Entries do
   @moduledoc false
 
-  alias UnCLI.{Output}
+  alias UnCLI.{Output, Input}
   import UnCLI.Core
+
+  require EEx
 
   def list(logged_in \\ logged_in?())
 
@@ -53,11 +55,27 @@ defmodule UnCLI.Entries do
   end
 
   defp render_entry(entry) do
-    Output.title(entry.title)
-    Output.author(entry.source.name)
+    Output.put("Opening #{entry.title} in the browser...")
 
-    Output.put_html(entry.body)
+    path = "/tmp/unlib_#{filenamify(entry.source.name)}_#{entry.id}.html"
+
+    html =
+      entry.body
+      |> Input.sanitize_html()
+      |> generate_page(entry.title, entry.source.name)
+
+    File.write!(path, html, [:write])
+    System.cmd("xdg-open", [path])
   end
+
+  defp filenamify(name) do
+    name
+    |> String.downcase()
+    |> String.replace(" ", "_")
+    |> String.replace("/", "_")
+  end
+
+  EEx.function_from_file(:def, :generate_page, "lib/uncli/entry.eex", [:body, :title, :author])
 
   def prune() do
     make_call(UnLib.Entries.prune())
