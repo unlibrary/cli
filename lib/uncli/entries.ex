@@ -45,6 +45,8 @@ defmodule UnCLI.Entries do
     entry.url
     |> Output.italic()
     |> Output.put()
+
+    Output.empty()
   end
 
   def read(id) do
