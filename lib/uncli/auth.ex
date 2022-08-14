@@ -6,7 +6,6 @@ defmodule UnCLI.Auth do
 
   def login do
     if logged_in?() do
-      Output.empty()
       Output.error("Already logged in.")
       Output.put("(maybe log out using `auth logout` first)")
     else
@@ -35,8 +34,6 @@ defmodule UnCLI.Auth do
   end
 
   def logout do
-    Output.empty()
-
     if logged_in?() do
       make_call(UnLibD.Auth.logout())
       Output.put("Logged out successfully.")

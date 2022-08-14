@@ -7,13 +7,23 @@ defmodule UnCLI.Feeds do
   def pull(logged_in \\ logged_in?())
 
   def pull(true) do
-    make_call(UnLibD.pull_now())
-    Output.empty()
-    Output.put("Pulling new entries.")
+    Output.put("Pulling new entries...")
+
+    response = make_call(UnLibD.pull_now())
+    print_errors(response)
   end
 
   def pull(false) do
-    Output.empty()
     Output.error!("Not authenticated.")
+  end
+
+  defp print_errors(response) do
+    for data <- response do
+      if data.error do
+        Output.error(data.error)
+      else
+        Output.put("Pulled #{data.source.name}")
+      end
+    end
   end
 end

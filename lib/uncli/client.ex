@@ -86,7 +86,6 @@ defmodule UnCLI.Client do
   end
 
   defp invalid_arguments do
-    Output.empty()
     Output.error("Invalid arguments provided.")
     Output.put("Try --help for an overview of all commands")
   end

@@ -24,7 +24,6 @@ defmodule UnCLI.Sources do
   end
 
   def add(false) do
-    Output.empty()
     Output.error!("Not authenticated.")
   end
 
@@ -69,7 +68,6 @@ defmodule UnCLI.Sources do
   end
 
   def list(false) do
-    Output.empty()
     Output.error!("Not authenticated.")
   end
 
@@ -100,7 +98,6 @@ defmodule UnCLI.Sources do
   end
 
   def remove(_url, false) do
-    Output.empty()
     Output.error!("Not authenticated.")
   end
 

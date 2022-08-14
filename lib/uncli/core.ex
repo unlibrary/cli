@@ -1,6 +1,8 @@
 defmodule UnCLI.Core do
   @moduledoc false
 
+  alias UnCLI.{Output}
+
   @spec make_call(fun()) :: term()
   defmacro make_call(fun) do
     {{:__aliases__, _, modules}, fun, args} = Macro.decompose_call(fun)
@@ -8,7 +10,11 @@ defmodule UnCLI.Core do
     server = get_server()
 
     quote do
-      :erpc.call(unquote(server), unquote(module), unquote(fun), unquote(args))
+      if Node.connect(unquote(server)) do
+        :erpc.call(unquote(server), unquote(module), unquote(fun), unquote(args))
+      else
+        Output.error!("reader daemon is not online")
+      end
     end
   end
 

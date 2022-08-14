@@ -28,7 +28,6 @@ defmodule UnCLI.Entries do
   end
 
   def list(false) do
-    Output.empty()
     Output.error!("Not authenticated.")
   end
 
@@ -55,7 +54,6 @@ defmodule UnCLI.Entries do
         render_entry(entry)
 
       {:error, error} ->
-        Output.empty()
         Output.error!(error)
     end
   end
@@ -84,8 +82,8 @@ defmodule UnCLI.Entries do
   EEx.function_from_file(:def, :generate_page, "lib/uncli/entry.eex", [:body, :title, :author])
 
   def prune() do
+    Output.put("Pruning entries...")
     make_call(UnLib.Entries.prune())
-    Output.empty()
-    Output.put("Pruning entries.")
+    Output.put("Deleted all downloaded entries.")
   end
 end
