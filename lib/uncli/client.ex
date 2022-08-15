@@ -30,11 +30,17 @@ defmodule UnCLI.Client do
       ["entries", "read", url] ->
         Entries.read(url)
 
-      ["entries", "prune"] ->
-        Entries.prune()
-
       ["feeds", "pull"] ->
         Feeds.pull()
+
+      ["feeds", "download"] ->
+        Feeds.pull()
+
+      ["feeds", "prune"] ->
+        Feeds.prune(:read)
+
+      ["feeds", "prune", "--all"] ->
+        Feeds.prune(:all)
 
       [h] when h in ["--help", "-h"] ->
         help()
@@ -65,9 +71,9 @@ defmodule UnCLI.Client do
       {"sources remove <url>", "removes a source (use list to get url)"},
       {"entries list", "lists all downloaded entries in the authenticated account"},
       {"entries read <id>", "renders entry (use list to get id)"},
-      {"entries prune", "deletes all downloaded entries"},
-      {"feeds pull",
-       "downloads the 5 newest entries (skips entries that are already downloaded) from the sources in the authenticated account"}
+      {"feeds download",
+       "downloads the 5 newest entries (skips entries that are already downloaded) from the sources in the authenticated account"},
+      {"feeds prune [opts]", "deletes read entries, use --all to delete all downloaded entries"}
     ])
 
     Output.Help.items("Flags", [

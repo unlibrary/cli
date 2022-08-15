@@ -51,10 +51,19 @@ defmodule UnCLI.Entries do
   def read(id) do
     case make_call(UnLib.Entries.get(id)) do
       {:ok, entry} ->
-        render_entry(entry)
+        entry
+        |> mark_as_read()
+        |> render_entry()
 
       {:error, error} ->
         Output.error!(error)
+    end
+  end
+
+  defp mark_as_read(entry) do
+    case make_call(UnLib.Entries.read(entry)) do
+      {:ok, entry} -> entry
+      {:error, changeset} -> Output.error!(changeset)
     end
   end
 
@@ -80,10 +89,4 @@ defmodule UnCLI.Entries do
   end
 
   EEx.function_from_file(:def, :generate_page, "lib/uncli/entry.eex", [:body, :title, :author])
-
-  def prune() do
-    Output.put("Pruning entries...")
-    make_call(UnLib.Entries.prune())
-    Output.put("Deleted all downloaded entries.")
-  end
 end

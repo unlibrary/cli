@@ -62,6 +62,7 @@ defmodule UnCLI.Output do
         value =
           case value do
             [value] -> value
+            {value, _} -> value
             value -> value
           end
 

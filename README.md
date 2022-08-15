@@ -13,7 +13,7 @@ mix escript.build
 
 This will produce a binary named `uncli` in your working directory.
 
-[readerd](https://github.com/unlibrary/readerd) is required as backend for uncli.
+[readerd](https://github.com/unlibrary/readerd) is required as backend for `uncli`.
 
 ## Usage
 
@@ -54,11 +54,11 @@ SUBCOMMANDS:
     entries read <id>
         renders entry (use list to get id)
 
-    entries prune
-        deletes all downloaded entries
-
-    feeds pull
+    feeds download
         downloads the 5 newest entries (skips entries that are already downloaded) from the sources in the authenticated account
+
+    feeds prune [opts]
+        deletes read entries, use --all to delete all downloaded entries
 
 
 FLAGS:
