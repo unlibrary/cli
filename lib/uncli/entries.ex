@@ -9,13 +9,30 @@ defmodule UnCLI.Entries do
   def list(logged_in \\ logged_in?())
 
   def list(true) do
-    Output.title("Downloaded posts")
+    entries = make_call(UnLib.Entries.list())
+    render_entry_list("unread", entries)
+  end
 
-    user = user()
-    entries = make_call(UnLib.Entries.list(user))
+  def list(false) do
+    Output.error!("Not authenticated.")
+  end
+
+  def list_all(logged_in \\ logged_in?())
+
+  def list_all(true) do
+    entries = make_call(UnLib.Entries.list_all())
+    render_entry_list("downloaded", entries)
+  end
+
+  def list_all(false) do
+    Output.error!("Not authenticated.")
+  end
+
+  defp render_entry_list(kind, entries) do
+    Output.title("#{String.capitalize(kind)} posts")
 
     if entries == [] do
-      "There are no downloaded posts."
+      "There are no #{kind} posts."
       |> Output.supplement()
       |> Output.italic()
       |> Output.put()
@@ -25,10 +42,6 @@ defmodule UnCLI.Entries do
 
     Output.empty()
     Output.put("Showing #{length(entries)} posts.")
-  end
-
-  def list(false) do
-    Output.error!("Not authenticated.")
   end
 
   defp render_entry_item(entry) do

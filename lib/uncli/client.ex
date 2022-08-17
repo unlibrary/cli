@@ -27,6 +27,9 @@ defmodule UnCLI.Client do
       ["entries", "list"] ->
         Entries.list()
 
+      ["entries", "list", "--all"] ->
+        Entries.list_all()
+
       ["entries", "read", url] ->
         Entries.read(url)
 
@@ -37,10 +40,10 @@ defmodule UnCLI.Client do
         Feeds.pull()
 
       ["feeds", "prune"] ->
-        Feeds.prune(:read)
+        Feeds.prune()
 
       ["feeds", "prune", "--all"] ->
-        Feeds.prune(:all)
+        Feeds.prune_all()
 
       [h] when h in ["--help", "-h"] ->
         help()

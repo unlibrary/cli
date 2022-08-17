@@ -27,15 +27,17 @@ defmodule UnCLI.Feeds do
     end
   end
 
-  def prune(:all) do
+  def prune do
     Output.put("Pruning entries...")
-    make_call(UnLib.Entries.prune(:all))
-    Output.put("Deleted all downloaded entries.")
+    make_call(UnLib.Entries.prune())
+
+    Output.put("Deleted all read entries.")
   end
 
-  def prune(:read) do
+  def prune_all do
     Output.put("Pruning entries...")
-    make_call(UnLib.Entries.prune(:read))
-    Output.put("Deleted all read entries.")
+    make_call(UnLib.Entries.prune_all())
+
+    Output.put("Deleted all downloaded entries.")
   end
 end
