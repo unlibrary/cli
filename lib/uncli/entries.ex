@@ -9,7 +9,7 @@ defmodule UnCLI.Entries do
   def list(logged_in \\ logged_in?())
 
   def list(true) do
-    entries = make_call(UnLib.Entries.list())
+    entries = make_call(UnLib.Entries.list(user()))
     render_entry_list("unread", entries)
   end
 
@@ -20,7 +20,7 @@ defmodule UnCLI.Entries do
   def list_all(logged_in \\ logged_in?())
 
   def list_all(true) do
-    entries = make_call(UnLib.Entries.list_all())
+    entries = make_call(UnLib.Entries.list_all(user()))
     render_entry_list("downloaded", entries)
   end
 
